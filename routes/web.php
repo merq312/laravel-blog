@@ -24,8 +24,21 @@ Route::get('posts/{post}', function ($slug) {
     return view('post', [
         'post' => Post::find($slug)
     ]);
-})->where('post', '[A-z_\-]+');
+});
 
-//        ddd('file does not exist');
-//        abort(404);
-//        return redirect('/');
+// Notes
+
+// Dump and Die
+// dd(...);
+
+// Dump, Die, Debug
+// ddd(...);
+
+// Send 404
+// abort(404);
+
+// Redirect to /
+// return redirect('/');
+
+// Regex match a uri
+// ->where('post', '[A-z_\-]+');
