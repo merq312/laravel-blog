@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -15,15 +16,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+//  \Illuminate\Support\Facades\DB::listen(function ($query) {
+////    \Illuminate\Support\Facades\Log::info('foo');
+//      logger($query->sql, $query->bindings);
+//  });
+
+    // with() will prevent lazy loading to avoid the N+1 problem
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => Post::with('category')->get()
     ]);
 });
 
-// Route model binding automatically binds view and db model
+// Route model binding (:slug) automatically binds view and db model
 Route::get('posts/{post:slug}', function (Post $post) {
     return view('post', [
         'post' => $post
+    ]);
+});
+
+Route::get('categories/{category}', function (Category $category) {
+    return view('posts', [
+        'posts' => $category->posts
     ]);
 });
 
