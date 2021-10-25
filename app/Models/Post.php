@@ -26,14 +26,18 @@ class Post extends Model
 //        return 'slug';
 //    }
 
+    // Always return category and author (eager load by default)
+    // With this you may remove with() and load() methods in web.php
+//    protected $with = ['category', 'author'];
+
     public function category()
     {
         // hasOne, hasMany, belongsTo, belongsToMany
         return $this->belongsTo(Category::class);
     }
 
-    public function user()
+    public function author() // using "author" instead of "user"
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "user_id");
     }
 }
